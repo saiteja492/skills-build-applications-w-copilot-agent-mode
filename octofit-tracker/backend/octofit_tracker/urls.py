@@ -17,6 +17,7 @@ import os
 
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 from rest_framework import routers
 from octofit_tracker.views import UserViewSet, TeamViewSet, ActivityViewSet, WorkoutViewSet, LeaderboardViewSet
 from rest_framework.decorators import api_view
@@ -45,6 +46,7 @@ def api_root(request):
         'leaderboard': f"{base_url}/api/leaderboard/",
     })
 urlpatterns = [
+    path('', RedirectView.as_view(url='/api/', permanent=False), name='index'),
     path('admin/', admin.site.urls),
     path('api/', api_root, name='api-root'),
     path('api/', include(router.urls)),
